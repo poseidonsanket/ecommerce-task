@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",        // This is important for ESM support
+    "moduleResolution": "node", // Ensure this is set
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": false,            // Ensure it emits JS
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "isolatedModules": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "lib/**/*.ts",
+    "scripts/**/*.ts",
+    "scripts/seed.js",
+    "lib/db.ts"
+  ],
+  "exclude": ["node_modules"]
+}
