@@ -56,6 +56,7 @@ export const Header = () => {
   }, []);
 
   const handleLogout = () => {
+    localStorage.removeItem("token");
     dispatch(logout()); // Dispatch logout action
     router.push("/"); // Redirect to home after logout
   };

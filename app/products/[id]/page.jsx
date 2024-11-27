@@ -3,35 +3,13 @@ import { notFound } from "next/navigation";
 import pool from "../../../lib/db";
 import AddToCartButton from "../../../components/AddToCartButton";
 
-interface ProductPageProps {
-  params: {
-    id: string;
-  };
-}
 
-export async function generateMetadata({
-  params,
-}: ProductPageProps): Promise<Metadata> {
-  const product = await getProduct(parseInt(params.id));
 
-  if (!product) {
-    return {
-      title: "Product Not Found",
-    };
-  }
-
-  return {
-    title: `${product.name} - Ecommerce Prototype`,
-    description: product.description,
-  };
-}
-
-async function getProduct(id: number) {
+// Fetch product from the database
+async function getProduct(id) {
   const client = await pool.connect();
   try {
-    const result = await client.query("SELECT * FROM products WHERE id = $1", [
-      id,
-    ]);
+    const result = await client.query("SELECT * FROM products WHERE id = $1", [id]);
     return result.rows[0];
   } catch (error) {
     console.error("Error fetching product:", error);
@@ -41,11 +19,28 @@ async function getProduct(id: number) {
   }
 }
 
-export default async function ProductPage({ params }: ProductPageProps) {
+// Generate metadata for SEO (title and description)
+export async function generateMetadata({
+  params,
+}) {
+  const product = await getProduct(parseInt(params.id));
+
+  return product
+    ? {
+        title: `${product.name} - Ecommerce Prototype`,
+        description: product.description,
+      }
+    : {
+        title: "Product Not Found",
+      };
+}
+
+// Default page component
+export default async function ProductPage({ params }) {
   const product = await getProduct(parseInt(params.id));
 
   if (!product) {
-    notFound();
+    notFound(); // Trigger 404 if product is not found
   }
 
   return (

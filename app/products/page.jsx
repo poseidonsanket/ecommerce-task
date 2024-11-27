@@ -6,13 +6,7 @@ import ProductListSkeleton from "@/components/ProductListSkeleton";
 import ProductFilterForm from "@/components/ProductFilterForm";
 
 // Enhanced function to build dynamic SQL query with filters
-async function getProducts(options: {
-  page: number;
-  category?: string;
-  minPrice?: number;
-  maxPrice?: number;
-  search?: string;
-}) {
+async function getProducts(options) {
   const { page = 1, category, minPrice, maxPrice, search } = options;
 
   const limit = 6;
@@ -20,8 +14,8 @@ async function getProducts(options: {
 
   try {
     // Build where clause dynamically
-    const whereClauses: string[] = [];
-    const queryParams: any[] = [];
+    const whereClauses = [];
+    const queryParams = [];
     let paramCount = 1;
 
     if (category) {
@@ -88,15 +82,8 @@ async function getProducts(options: {
 
 export default async function ProductsPage({
   searchParams,
-}: {
-  searchParams: {
-    page?: string;
-    category?: string;
-    minPrice?: string;
-    maxPrice?: string;
-    search?: string;
-  };
-}) {
+}
+) {
   const page = parseInt(searchParams?.page || "1", 10);
   const category = searchParams?.category;
   const minPrice = searchParams?.minPrice
