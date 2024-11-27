@@ -42,7 +42,7 @@ export default function CartItems() {
       return;
     }
 
-    const response = await fetch("/api/cart", {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/cart`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -63,7 +63,7 @@ export default function CartItems() {
       return;
     }
 
-    const response = await fetch(`/api/cart?id=${id}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/cart?id=${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -108,7 +108,7 @@ export default function CartItems() {
     }
 
     try {
-      const response = await fetch("/api/cart", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/cart`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

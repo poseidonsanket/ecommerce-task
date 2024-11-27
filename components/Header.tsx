@@ -4,7 +4,7 @@ import { ShoppingCart, User, Menu, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { login, logout } from "@/store/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store";
@@ -34,7 +34,7 @@ export const Header = () => {
         return;
       }
 
-      const response = await fetch("/api/cart", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/cart`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -58,8 +58,19 @@ export const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     dispatch(logout()); // Dispatch logout action
-    router.push("/"); // Redirect to home after logout
+    router.push("/");
+    setTimeout(() => {
+      window.location.reload()
+    }, 100)
   };
+
+  const pathname = usePathname(); // Get the current pathname
+
+  // useEffect(() => {
+  //   if (pathname === "/") {
+  //     window.location.reload(); // Reload the page when the pathname is "/"
+  //   }
+  // }, []);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">

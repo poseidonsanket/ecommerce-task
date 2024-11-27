@@ -21,7 +21,7 @@ export default function LoginForm() {
     e.preventDefault();
     setError('');
 
-    const response = await fetch('/api/auth/login', {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -31,7 +31,10 @@ export default function LoginForm() {
       const data = await response.json();
       localStorage.setItem('token', data.token);
       dispatch(login({ token: data.token }));
-      router.push('/products');
+      router.push('/');
+      setTimeout(() => {
+        window.location.reload()
+      }, 100)
     } else {
       const data = await response.json();
       setError(data.error || 'An error occurred during login');

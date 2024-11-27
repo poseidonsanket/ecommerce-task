@@ -28,7 +28,7 @@ export default function AddToCartButton({ productId }: AddToCartButtonProps) {
         return;
       }
 
-      const response = await fetch("/api/cart", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/cart`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
