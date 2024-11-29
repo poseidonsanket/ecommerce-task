@@ -140,7 +140,7 @@ export const Header = () => {
                   <ShoppingCart className="h-5 w-5" />
                   {/* Cart Item Count Badge */}
                   {totalCartItems > 0 && (
-                    <span className="absolute bottom-2 left-3 inline-flex items-center justify-center h-4 w-4 rounded-full bg-red-500 text-white text-xs font-semibold">
+                    <span className="absolute bottom-2 left-3 inline-flex items-center justify-center h-4 w-4 rounded-full bg-black text-white text-xs font-semibold">
                       {totalCartItems}
                     </span>
                   )}
